@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: onboardingadminbot
+  labels:
+    app: onboardingadminbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: onboardingadminbot
+  template:
+    metadata:
+      labels:
+        app: onboardingadminbot
+    spec:
+      containers:
+      - name: onboardingadminbot
+        image: core.harbor.k8s.devim.team/library/onboardingadminbot:$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA
+        resources:
+          limits:
+            memory: 256Mi
+            cpu: 250m
+        envFrom:
+          - configMapRef:
+              name: onboardingadminbot-config
+          - secretRef:
+              name: onboardingadminbot-secret
+      imagePullSecrets:
+      - name: regcred-harbor

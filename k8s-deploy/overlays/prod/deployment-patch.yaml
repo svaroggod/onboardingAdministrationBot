@@ -1,0 +1,8 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: onboardingadminbot
+  labels:
+    patch_env: prod
+spec:
+  replicas: 1

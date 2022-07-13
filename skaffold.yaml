@@ -1,0 +1,26 @@
+apiVersion: skaffold/v2alpha2
+kind: Config
+metadata:
+  name: onboardingadminbot
+# build:
+#   cluster: 
+#     dockerConfig:
+#       # path: ~/.docker/config.json
+#       secretName: docker-cfg
+#   artifacts:
+#   - image: cr.yandex/crpgk36inali7qntroha/cicd-example
+#     kaniko:
+#       # cache: {}
+profiles:
+- name: dev
+  activation:
+    - env: ENV=dev
+  deploy:
+    kustomize:
+      path: ./k8s-deploy/overlays/dev
+- name: prod
+  activation:
+    - env: ENV=prod
+  deploy:
+    kustomize:
+      path: ./k8s-deploy/overlays/prod
